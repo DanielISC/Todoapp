@@ -1,0 +1,5 @@
+<%= form_for([@todo_list, @todo_task]) do |form| %>
+  <%= form.label :Tasks %>
+  <%= form.text_field :content, id: :todo_task_content, placeholder: "New Task"%>
+  <%= form.submit %>
+<% end %>
