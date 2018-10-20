@@ -11,6 +11,7 @@ class TodoTasksController < ApplicationController
   end
 
   def create
+    SendMailJob.perform_later
     @todo_task = @todo_list.todo_tasks.create(todo_task_params)
     redirect_to @todo_list
   end
@@ -34,6 +35,11 @@ class TodoTasksController < ApplicationController
       flash[:error] = "Todo List item could not be deleted."
     end
     redirect_to @todo_list
+  end
+
+  def complete
+   @todo_task.update_attribute(:completed_at, Time.now)
+   redirect_to @todo_list, notice: "Todo task completed"
   end
 
   private
